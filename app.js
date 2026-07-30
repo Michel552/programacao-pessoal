@@ -18,58 +18,41 @@ async function carregarEventos() {
             .select("*")
             .order("data_inicio");
 
-    if (error) {
+    console.log(data);
 
-        console.error(error);
+    if (error) {
 
         document.getElementById(
             "mesesContainer"
         ).innerHTML =
-            "<p>Erro ao carregar eventos.</p>";
+            "<h2>Erro ao carregar eventos</h2>";
+
+        console.error(error);
 
         return;
     }
 
-    let html = "<h2>Eventos cadastrados</h2>";
+    let html =
+        "<h2>Eventos cadastrados</h2>";
 
     data.forEach(evento => {
 
         html += `
-            <div class="card">
+            <div>
 
-                <strong>${evento.status}</strong>
+                <strong>
+                    ${evento.status}
+                </strong>
 
                 <br>
 
                 ${evento.data_inicio}
 
-                ${evento.data_fim
-                    ? " até " + evento.data_fim
-                    : ""
-                }
-
-                <br>
-
-                ${evento.cia || ""}
-
-                ${evento.origem
-                    ? evento.origem + " → "
-                    : ""
-                }
-
-                ${evento.destino || ""}
-
             </div>
+
+            <hr>
         `;
     });
-
-    document.getElementById(
-        "periodoSelect"
-    ).style.display = "none";
-
-    document.getElementById(
-        "dashboard"
-    ).innerHTML = "";
 
     document.getElementById(
         "mesesContainer"
