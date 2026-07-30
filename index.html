@@ -12,11 +12,13 @@
 <body>
 
     <header>
+
         <h1>Programação Pessoal</h1>
 
         <button id="novoEventoBtn">
             + Novo Evento
         </button>
+
     </header>
 
     <main>
@@ -25,8 +27,59 @@
 
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
+    <dialog id="modalEvento">
+
+        <h2>Novo Evento</h2>
+
+        <form id="formEvento">
+
+            <label>Status</label>
+            <select id="status"></select>
+
+            <label>Data Início</label>
+            <input type="date" id="data_inicio">
+
+            <label>Data Fim</label>
+            <input type="date" id="data_fim">
+
+            <label>CIA</label>
+            <input type="text" id="cia">
+
+            <label>Origem</label>
+            <input type="text" id="origem">
+
+            <label>Destino</label>
+            <input type="text" id="destino">
+
+            <label>Descrição</label>
+            <input type="text" id="descricao">
+
+            <label>Observação</label>
+            <textarea id="observacao"></textarea>
+
+            <div class="botoes-modal">
+
+                <button type="submit">
+                    Salvar
+                </button>
+
+                <button
+                    type="button"
+                    id="cancelarBtn">
+
+                    Cancelar
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ 
+<script src="app.js"></script>
 
 </body>
 
