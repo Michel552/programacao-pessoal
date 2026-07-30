@@ -37,9 +37,7 @@ async function carregarEventos() {
         html += `
             <div class="card">
 
-                <strong>
-                    ${evento.status}
-                </strong>
+                <strong>${evento.status}</strong>
 
                 <br>
 
@@ -66,12 +64,12 @@ async function carregarEventos() {
     });
 
     document.getElementById(
-        "dashboard"
-    ).innerHTML = "";
-
-    document.getElementById(
         "periodoSelect"
     ).style.display = "none";
+
+    document.getElementById(
+        "dashboard"
+    ).innerHTML = "";
 
     document.getElementById(
         "mesesContainer"
