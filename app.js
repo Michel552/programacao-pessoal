@@ -116,5 +116,85 @@ async function carregarEventos() {
     ).innerHTML = html;
 }
 
+document
+    .getElementById("formEvento")
+    .addEventListener(
+        "submit",
+        async (e) => {
+
+            e.preventDefault();
+
+            const novoEvento = {
+
+                status:
+                    document
+                        .getElementById("status")
+                        .value,
+
+                data_inicio:
+                    document
+                        .getElementById("data_inicio")
+                        .value,
+
+                data_fim:
+                    document
+                        .getElementById("data_fim")
+                        .value,
+
+                cia:
+                    document
+                        .getElementById("cia")
+                        .value,
+
+                origem:
+                    document
+                        .getElementById("origem")
+                        .value,
+
+                destino:
+                    document
+                        .getElementById("destino")
+                        .value,
+
+                descricao:
+                    document
+                        .getElementById("descricao")
+                        .value,
+
+                observacao:
+                    document
+                        .getElementById("observacao")
+                        .value
+
+            };
+
+            const { error } =
+                await supabaseClient
+                    .from("eventos")
+                    .insert([novoEvento]);
+
+            if (error) {
+
+                console.error(error);
+
+                alert(
+                    "Erro ao salvar evento"
+                );
+
+                return;
+
+            }
+
+            modal.close();
+
+            document
+                .getElementById("formEvento")
+                .reset();
+
+            carregarEventos();
+
+        }
+    );
+
 carregarStatus();
 carregarEventos();
