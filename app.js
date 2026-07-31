@@ -136,12 +136,12 @@ document
                 data_inicio:
                     document
                         .getElementById("data_inicio")
-                        .value,
+                        .value || null,
 
                 data_fim:
                     document
                         .getElementById("data_fim")
-                        .value,
+                        .value || null,
 
                 cia:
                     document
