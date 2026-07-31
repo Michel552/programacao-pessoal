@@ -19,6 +19,9 @@ const btnNovoEvento =
 const btnCancelar =
     document.getElementById("cancelarBtn");
 
+const selectStatus =
+    document.getElementById("status");
+
 btnNovoEvento.addEventListener(
     "click",
     () => {
@@ -32,6 +35,36 @@ btnCancelar.addEventListener(
         modal.close();
     }
 );
+
+async function carregarStatus() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("status_evento")
+            .select("*")
+            .order("status");
+
+    if (error) {
+
+        console.error(error);
+        return;
+
+    }
+
+    selectStatus.innerHTML =
+        '<option value="">Selecione</option>';
+
+    data.forEach(item => {
+
+        selectStatus.innerHTML += `
+            <option value="${item.status}">
+                ${item.status}
+            </option>
+        `;
+
+    });
+
+}
 
 async function carregarEventos() {
 
@@ -80,4 +113,5 @@ async function carregarEventos() {
     ).innerHTML = html;
 }
 
+carregarStatus();
 carregarEventos();
