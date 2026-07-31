@@ -123,7 +123,9 @@ document
         async (e) => {
 
             e.preventDefault();
-
+            
+            console.log("SUBMIT EXECUTADO");
+            
             const novoEvento = {
 
                 status:
