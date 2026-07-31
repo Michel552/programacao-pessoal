@@ -63,7 +63,10 @@ async function carregarStatus() {
         `;
 
     });
-
+    
+    console.log(data);
+    console.log(selectStatus.innerHTML);
+    
 }
 
 async function carregarEventos() {
