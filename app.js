@@ -42,7 +42,11 @@ btnNovoEvento.addEventListener(
 btnCancelar.addEventListener(
     "click",
     () => {
+
+        eventoEmEdicao = null;
+
         modal.close();
+
     }
 );
 
@@ -186,20 +190,36 @@ document
 
             };
 
+            console.log(
+                "eventoEmEdicao:",
+                eventoEmEdicao
+            );
+
             let error;
 
             if (eventoEmEdicao !== null) {
+
+                console.log(
+                    "EXECUTANDO UPDATE"
+                );
 
                 const resultado =
                     await supabaseClient
                         .from("eventos")
                         .update(novoEvento)
-                        .eq("id", eventoEmEdicao);
+                        .eq(
+                            "id",
+                            Number(eventoEmEdicao)
+                        );
 
                 error =
                     resultado.error;
 
             } else {
+
+                console.log(
+                    "EXECUTANDO INSERT"
+                );
 
                 const resultado =
                     await supabaseClient
@@ -223,13 +243,13 @@ document
 
             }
 
+            eventoEmEdicao = null;
+
             modal.close();
 
             document
                 .getElementById("formEvento")
                 .reset();
-
-            eventoEmEdicao = null;
 
             carregarEventos();
 
@@ -237,6 +257,11 @@ document
     );
 
 async function editarEvento(id){
+
+    console.log(
+        "EDITAR:",
+        id
+    );
 
     const { data, error } =
         await supabaseClient
@@ -252,7 +277,12 @@ async function editarEvento(id){
 
     }
 
-    eventoEmEdicao = id;
+    eventoEmEdicao = Number(id);
+
+    console.log(
+        "eventoEmEdicao definido para:",
+        eventoEmEdicao
+    );
 
     document.getElementById("status").value =
         data.status || "";
