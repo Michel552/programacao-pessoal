@@ -118,12 +118,19 @@ async function carregarEventos() {
 
                 <br><br>
 
-                <button
-                    onclick="editarEvento(${evento.id})">
+<button
+    onclick="editarEvento(${evento.id})">
 
-                    Editar
+    Editar
 
-                </button>
+</button>
+
+<button
+    onclick="excluirEvento(${evento.id})">
+
+    Excluir
+
+</button>
 
             </div>
 
@@ -309,6 +316,39 @@ async function editarEvento(id){
         data.observacao || "";
 
     modal.showModal();
+
+}
+
+async function excluirEvento(id){
+
+    const confirmar =
+        confirm(
+            "Deseja realmente excluir este evento?"
+        );
+
+    if(!confirmar){
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+            .from("eventos")
+            .delete()
+            .eq("id", id);
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Erro ao excluir evento"
+        );
+
+        return;
+
+    }
+
+    carregarEventos();
 
 }
 
