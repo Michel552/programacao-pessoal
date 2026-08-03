@@ -80,6 +80,19 @@ async function carregarStatus() {
 
 }
 
+function formatarData(data){
+
+    if(!data){
+        return "";
+    }
+
+    const partes =
+        data.split("-");
+
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+}
+
 async function carregarEventos() {
 
     const { data, error } =
@@ -106,35 +119,45 @@ async function carregarEventos() {
     data.forEach(evento => {
 
         html += `
-            <div>
+            <div class="evento-card">
 
-                <strong>
-                    ${evento.status}
-                </strong>
+                <div class="evento-status">
+                    ${evento.status || ""}
+                </div>
 
-                <br>
+                <div class="evento-data">
+                    ${formatarData(evento.data_inicio)}
+                </div>
 
-                ${evento.data_inicio}
+                <div class="evento-cia">
+                    ${evento.cia || ""}
+                </div>
 
-                <br><br>
+                <div class="evento-trecho">
+                    ${evento.origem || ""}
+                    ${evento.origem && evento.destino ? " → " : ""}
+                    ${evento.destino || ""}
+                </div>
 
-                <button
-                    onclick="editarEvento(${evento.id})">
+                <div class="evento-botoes">
 
-                    Editar
+                    <button
+                        onclick="editarEvento(${evento.id})">
 
-                </button>
+                        Editar
 
-                <button
-                    onclick="excluirEvento(${evento.id})">
+                    </button>
 
-                    Excluir
+                    <button
+                        onclick="excluirEvento(${evento.id})">
 
-                </button>
+                        Excluir
+
+                    </button>
+
+                </div>
 
             </div>
-
-            <hr>
         `;
 
     });
@@ -197,18 +220,9 @@ document
 
             };
 
-            console.log(
-                "eventoEmEdicao:",
-                eventoEmEdicao
-            );
-
             let error;
 
             if (eventoEmEdicao !== null) {
-
-                console.log(
-                    "EXECUTANDO UPDATE"
-                );
 
                 const resultado =
                     await supabaseClient
@@ -223,10 +237,6 @@ document
                     resultado.error;
 
             } else {
-
-                console.log(
-                    "EXECUTANDO INSERT"
-                );
 
                 const resultado =
                     await supabaseClient
@@ -265,11 +275,6 @@ document
 
 async function editarEvento(id){
 
-    console.log(
-        "EDITAR:",
-        id
-    );
-
     const { data, error } =
         await supabaseClient
             .from("eventos")
@@ -285,11 +290,6 @@ async function editarEvento(id){
     }
 
     eventoEmEdicao = Number(id);
-
-    console.log(
-        "eventoEmEdicao definido para:",
-        eventoEmEdicao
-    );
 
     document.getElementById("status").value =
         data.status || "";
