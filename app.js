@@ -27,7 +27,15 @@ let eventoEmEdicao = null;
 btnNovoEvento.addEventListener(
     "click",
     () => {
+
+        eventoEmEdicao = null;
+
+        document
+            .getElementById("formEvento")
+            .reset();
+
         modal.showModal();
+
     }
 );
 
@@ -65,10 +73,7 @@ async function carregarStatus() {
         `;
 
     });
-    
-    console.log(data);
-    console.log(selectStatus.innerHTML);
-    
+
 }
 
 async function carregarEventos() {
@@ -96,35 +101,37 @@ async function carregarEventos() {
 
     data.forEach(evento => {
 
-html += `
-    <div>
+        html += `
+            <div>
 
-        <strong>
-            ${evento.status}
-        </strong>
+                <strong>
+                    ${evento.status}
+                </strong>
 
-        <br>
+                <br>
 
-        ${evento.data_inicio}
+                ${evento.data_inicio}
 
-        <br><br>
+                <br><br>
 
-        <button
-            onclick="editarEvento(${evento.id})">
+                <button
+                    onclick="editarEvento(${evento.id})">
 
-            Editar
+                    Editar
 
-        </button>
+                </button>
 
-    </div>
+            </div>
 
-    <hr>
-`;
+            <hr>
+        `;
+
     });
 
     document.getElementById(
         "calendario"
     ).innerHTML = html;
+
 }
 
 document
@@ -134,9 +141,7 @@ document
         async (e) => {
 
             e.preventDefault();
-            
-            console.log("SUBMIT EXECUTADO");
-            
+
             const novoEvento = {
 
                 status:
@@ -181,56 +186,55 @@ document
 
             };
 
-let error;
+            let error;
 
-if (eventoEmEdicao) {
+            if (eventoEmEdicao !== null) {
 
-    const resultado =
-        await supabaseClient
-            .from("eventos")
-            .update(novoEvento)
-            .eq("id", eventoEmEdicao);
+                const resultado =
+                    await supabaseClient
+                        .from("eventos")
+                        .update(novoEvento)
+                        .eq("id", eventoEmEdicao);
 
-    error = resultado.error;
+                error =
+                    resultado.error;
 
-} else {
+            } else {
 
-    const resultado =
-        await supabaseClient
-            .from("eventos")
-            .insert([novoEvento]);
+                const resultado =
+                    await supabaseClient
+                        .from("eventos")
+                        .insert([novoEvento]);
 
-    error = resultado.error;
+                error =
+                    resultado.error;
 
-}
+            }
 
-if (error) {
+            if (error) {
 
-    console.error(error);
+                console.error(error);
 
-    alert(
-        "Erro ao salvar evento"
-    );
+                alert(
+                    "Erro ao salvar evento"
+                );
 
-    return;
+                return;
 
-}
+            }
 
-modal.close();
+            modal.close();
 
-document
-    .getElementById("formEvento")
-    .reset();
+            document
+                .getElementById("formEvento")
+                .reset();
 
-eventoEmEdicao = null;
+            eventoEmEdicao = null;
 
-carregarEventos();
+            carregarEventos();
 
         }
     );
-
-carregarStatus();
-carregarEventos();
 
 async function editarEvento(id){
 
@@ -247,6 +251,8 @@ async function editarEvento(id){
         return;
 
     }
+
+    eventoEmEdicao = id;
 
     document.getElementById("status").value =
         data.status || "";
@@ -275,3 +281,6 @@ async function editarEvento(id){
     modal.showModal();
 
 }
+
+carregarStatus();
+carregarEventos();
