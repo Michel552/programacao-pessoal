@@ -118,19 +118,19 @@ async function carregarEventos() {
 
                 <br><br>
 
-<button
-    onclick="editarEvento(${evento.id})">
+                <button
+                    onclick="editarEvento(${evento.id})">
 
-    Editar
+                    Editar
 
-</button>
+                </button>
 
-<button
-    onclick="excluirEvento(${evento.id})">
+                <button
+                    onclick="excluirEvento(${evento.id})">
 
-    Excluir
+                    Excluir
 
-</button>
+                </button>
 
             </div>
 
