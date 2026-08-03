@@ -121,7 +121,7 @@ async function carregarEventos() {
         html += `
             <div class="evento-card">
 
-                <div class="evento-status">
+                <div class="evento-status ${classeStatus(evento.status)}">
                     ${evento.status || ""}
                 </div>
 
