@@ -118,9 +118,60 @@ dialog::backdrop{
 }
 
 .evento-status{
-    font-size:18px;
-    font-weight:bold;
-    color:#003366;
+    display:inline-block;
+    font-size:14px;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:20px;
+    margin-bottom:8px;
+}
+
+/* IDA */
+.status-ida{
+    background:#E3F2FD;
+    color:#1565C0;
+}
+
+/* VOLTA */
+.status-volta{
+    background:#FFEBEE;
+    color:#C62828;
+}
+
+/* FÉRIAS */
+.status-ferias{
+    background:#E8F5E9;
+    color:#2E7D32;
+}
+
+/* FERIADO */
+.status-feriado{
+    background:#FFF8E1;
+    color:#F57F17;
+}
+
+/* HOME OFFICE */
+.status-home-office{
+    background:#E8F5E9;
+    color:#00695C;
+}
+
+/* NÃO VIAJA */
+.status-nao-viaja{
+    background:#ECEFF1;
+    color:#455A64;
+}
+
+/* FAMÍLIA */
+.status-familia{
+    background:#F3E5F5;
+    color:#7B1FA2;
+}
+
+/* PLANEJAMENTO */
+.status-planejamento{
+    background:#FFF3E0;
+    color:#EF6C00;
 }
 
 .evento-data{
