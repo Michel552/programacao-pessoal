@@ -94,21 +94,30 @@ async function carregarEventos() {
 
     data.forEach(evento => {
 
-        html += `
-            <div>
+html += `
+    <div>
 
-                <strong>
-                    ${evento.status}
-                </strong>
+        <strong>
+            ${evento.status}
+        </strong>
 
-                <br>
+        <br>
 
-                ${evento.data_inicio}
+        ${evento.data_inicio}
 
-            </div>
+        <br><br>
 
-            <hr>
-        `;
+        <button
+            onclick="editarEvento(${evento.id})">
+
+            Editar
+
+        </button>
+
+    </div>
+
+    <hr>
+`;
     });
 
     document.getElementById(
@@ -200,3 +209,47 @@ document
 
 carregarStatus();
 carregarEventos();
+
+async function editarEvento(id){
+
+    const { data, error } =
+        await supabaseClient
+            .from("eventos")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+    if(error){
+
+        console.error(error);
+        return;
+
+    }
+
+    document.getElementById("status").value =
+        data.status || "";
+
+    document.getElementById("data_inicio").value =
+        data.data_inicio || "";
+
+    document.getElementById("data_fim").value =
+        data.data_fim || "";
+
+    document.getElementById("cia").value =
+        data.cia || "";
+
+    document.getElementById("origem").value =
+        data.origem || "";
+
+    document.getElementById("destino").value =
+        data.destino || "";
+
+    document.getElementById("descricao").value =
+        data.descricao || "";
+
+    document.getElementById("observacao").value =
+        data.observacao || "";
+
+    modal.showModal();
+
+}
