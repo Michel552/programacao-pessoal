@@ -22,6 +22,8 @@ const btnCancelar =
 const selectStatus =
     document.getElementById("status");
 
+let eventoEmEdicao = null;
+
 btnNovoEvento.addEventListener(
     "click",
     () => {
@@ -179,30 +181,50 @@ document
 
             };
 
-            const { error } =
-                await supabaseClient
-                    .from("eventos")
-                    .insert([novoEvento]);
+let error;
 
-            if (error) {
+if (eventoEmEdicao) {
 
-                console.error(error);
+    const resultado =
+        await supabaseClient
+            .from("eventos")
+            .update(novoEvento)
+            .eq("id", eventoEmEdicao);
 
-                alert(
-                    "Erro ao salvar evento"
-                );
+    error = resultado.error;
 
-                return;
+} else {
 
-            }
+    const resultado =
+        await supabaseClient
+            .from("eventos")
+            .insert([novoEvento]);
 
-            modal.close();
+    error = resultado.error;
 
-            document
-                .getElementById("formEvento")
-                .reset();
+}
 
-            carregarEventos();
+if (error) {
+
+    console.error(error);
+
+    alert(
+        "Erro ao salvar evento"
+    );
+
+    return;
+
+}
+
+modal.close();
+
+document
+    .getElementById("formEvento")
+    .reset();
+
+eventoEmEdicao = null;
+
+carregarEventos();
 
         }
     );
