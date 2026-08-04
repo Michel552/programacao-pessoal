@@ -93,6 +93,41 @@ function formatarData(data){
 
 }
 
+function classeStatus(status){
+
+    switch(status){
+
+        case "IDA":
+            return "status-ida";
+
+        case "VOLTA":
+            return "status-volta";
+
+        case "FERIAS":
+            return "status-ferias";
+
+        case "FERIADO":
+            return "status-feriado";
+
+        case "HOME OFFICE":
+            return "status-home-office";
+
+        case "NÃO VIAJA":
+            return "status-nao-viaja";
+
+        case "FAMILIA":
+            return "status-familia";
+
+        case "PLANEJAMENTO":
+            return "status-planejamento";
+
+        default:
+            return "";
+
+    }
+
+}
+
 async function carregarEventos() {
 
     const { data, error } =
