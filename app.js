@@ -55,17 +55,7 @@ async function carregarStatus() {
     const { data, error } =
         await supabaseClient
             .from("status_evento")
-            .select("*")
-            const ordemStatus = [
-                "PLANEJAMENTO",
-                "IDA",
-                "VOLTA",
-                "NÃO VIAJA",
-                "HOME OFFICE",
-                "FAMÍLIA",
-                "FERIADO",
-                "FÉRIAS"
-];
+            .select("*");
 
     if (error) {
 
@@ -73,6 +63,23 @@ async function carregarStatus() {
         return;
 
     }
+
+    const ordemStatus = [
+        "PLANEJAMENTO",
+        "IDA",
+        "VOLTA",
+        "NÃO VIAJA",
+        "HOME OFFICE",
+        "FAMILIA",
+        "FERIADO",
+        "FERIAS"
+    ];
+
+    data.sort(
+        (a, b) =>
+            ordemStatus.indexOf(a.status) -
+            ordemStatus.indexOf(b.status)
+    );
 
     selectStatus.innerHTML =
         '<option value="">Selecione</option>';
