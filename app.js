@@ -56,7 +56,16 @@ async function carregarStatus() {
         await supabaseClient
             .from("status_evento")
             .select("*")
-            .order("status");
+            const ordemStatus = [
+                "PLANEJAMENTO",
+                "IDA",
+                "VOLTA",
+                "NÃO VIAJA",
+                "HOME OFFICE",
+                "FAMÍLIA",
+                "FERIADO",
+                "FÉRIAS"
+];
 
     if (error) {
 
